@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from "../utils/password";
 
 // An interface that describes the properties of a user
 interface UserProperties {
@@ -16,6 +17,7 @@ interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
 }
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -25,6 +27,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+userSchema.pre("save", async function (next) {
+  // check if the password is modified
+  if (this.isModified("password")) {
+    const hashed = await Password.toHash(this.get("password"));
+    this.set("password", hashed);
+  }
+
+  next();
 });
 
 userSchema.statics.build = (props: UserProperties) => {
