@@ -4,12 +4,12 @@ import Router from "next/router";
 import classes from "./auth.module.scss";
 import useRequest from "../../hooks/useRequest";
 
-function signup() {
+function signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signup",
+    url: "/api/users/signin",
     method: "post",
     body: { email, password },
     onSuccess: () => Router.push("/"),
@@ -41,9 +41,9 @@ function signup() {
         />
       </div>
       {errors}
-      <button>Sign Up</button>
+      <button>Sign In</button>
     </form>
   );
 }
 
-export default signup;
+export default signin;
