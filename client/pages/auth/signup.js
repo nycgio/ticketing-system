@@ -1,12 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
+
 import classes from "./signup.module.scss";
+import useRequest from "../../hooks/use-request";
 
 function signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const { doRequest, errors } = useRequest({
+    url: "/api/users/signup",
+    method: "post",
+    body: { email, password },
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    doRequest();
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -16,7 +27,6 @@ function signup() {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          type="email"
           placeholder="Enter Email"
         />
       </div>
@@ -30,7 +40,7 @@ function signup() {
           placeholder="Enter Password"
         />
       </div>
-
+      {errors}
       <button>Sign Up</button>
     </form>
   );
