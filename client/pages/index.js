@@ -1,11 +1,14 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.scss";
+import buildClient from "../util/buildClient";
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <h1>Welcome</h1>
-    </div>
-  );
-}
+const Home = ({ user }) => {
+  return <h1>Welcome</h1>;
+};
+
+Home.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  const { data } = await client.get("/api/users/currentuser");
+
+  return data;
+};
+
+export default Home;
