@@ -1,7 +1,7 @@
 import express from "express";
 
 // custom modules
-import { currentUser } from "../middleware/current-user";
+import { currentUser } from "@nycgio-ticketsystem/common";
 
 const router = express.Router();
 

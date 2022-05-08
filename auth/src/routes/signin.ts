@@ -4,8 +4,7 @@ import jwt from "jsonwebtoken";
 
 // custom modules
 import { Password } from "../utils/password";
-import { BadRequestError } from "../errors/bad-request-error";
-import { validateRequest } from "../middleware/validate-request";
+import { validateRequest, BadRequestError } from "@nycgio-ticketsystem/common";
 import { User } from "../models/user";
 
 const router = express.Router();
