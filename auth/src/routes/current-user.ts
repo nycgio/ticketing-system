@@ -1,6 +1,6 @@
 import express from "express";
-import jwt from "jsonwebtoken";
 
+// custom modules
 import { currentUser } from "../middleware/current-user";
 
 const router = express.Router();
