@@ -3,7 +3,14 @@ import "express-async-errors";
 import cookieSession from "cookie-session";
 
 // custom modules
-import { errorHandler, NotFoundError } from "@nycgio-ticketsystem/common";
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from "@nycgio-ticketsystem/common";
+
+// routes
+import { createTicketRouter } from "./routes/new";
 
 const app = express();
 
@@ -17,11 +24,16 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+app.use(currentUser);
+
+// use routes
+app.use("/api/tickets", createTicketRouter);
 
 // error handlers
 app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
+
 app.use(errorHandler);
 
 export { app };
