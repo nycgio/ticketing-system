@@ -11,6 +11,7 @@ import {
 
 // routes
 import { createTicketRouter } from "./routes/new";
+import { showTicketRouter } from "./routes/show";
 
 const app = express();
 
@@ -27,7 +28,8 @@ app.use(
 app.use(currentUser);
 
 // use routes
-app.use("/api/tickets", createTicketRouter);
+app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 // error handlers
 app.all("*", async (req, res) => {
