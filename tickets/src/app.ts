@@ -12,6 +12,7 @@ import {
 // routes
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
+import { indexTicketRouter } from "./routes/index";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(currentUser);
 // use routes
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 // error handlers
 app.all("*", async (req, res) => {
