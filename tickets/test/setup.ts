@@ -4,6 +4,8 @@ import request from "supertest";
 import { app } from "../src/app";
 import jwt from "jsonwebtoken";
 
+jest.mock("../src/nats-wrapper");
+
 declare global {
   var signin: () => string[];
 }
@@ -24,6 +26,7 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
+  jest.clearAllMocks();
   await mongo.stop();
   await mongoose.connection.close();
 });
